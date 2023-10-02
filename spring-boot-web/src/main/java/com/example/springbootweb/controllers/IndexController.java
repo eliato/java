@@ -14,7 +14,7 @@ public class IndexController {
     //@RequestMapping(value = "/index", method = RequestMethod.GET)
     @GetMapping({"/index", "/", "/home"})
     public String index(Model model){
-        model.addAttribute("titulo", "Hola Spring Frameworkss");
+        model.addAttribute("titulo", "Hola Spring Frameworks");
         return "index";
     }
 
@@ -22,8 +22,9 @@ public class IndexController {
     public String perfil(Model model){
         Usuario usuario = new Usuario();
         usuario.setNombre("jose");
-        usuario.setApellido("Martinez");
+        usuario.setApellido("Torres");
         model.addAttribute("usuario", usuario);
+        model.addAttribute("titulo", "Perfil de usuario:".concat(usuario.getNombre()));
         return "perfil";
     }
 
