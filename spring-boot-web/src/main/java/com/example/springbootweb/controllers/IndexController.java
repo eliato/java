@@ -22,7 +22,7 @@ public class IndexController {
     public String perfil(Model model){
         Usuario usuario = new Usuario();
         usuario.setNombre("jose");
-        usuario.setApellido("Torres");
+        usuario.setApellido("Martinez");
         model.addAttribute("usuario", usuario);
         model.addAttribute("titulo", "Perfil de usuario:".concat(usuario.getNombre()));
         return "perfil";
