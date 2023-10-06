@@ -14,7 +14,9 @@ public class EjemploParamsController {
     public String index(){
         return "/params/index";
     }
-
+    public String index2(){
+        return "/params/index";
+    }
     @GetMapping("/string")
     public String param(@RequestParam(name = "texto", required = false, defaultValue = "Algún valor") String texto, Model model){
         model.addAttribute("titulo", "Recibir parametros del Request HTTP GET- URL");
