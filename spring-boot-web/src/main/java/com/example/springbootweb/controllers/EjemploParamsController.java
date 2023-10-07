@@ -1,4 +1,4 @@
-package com.example.springbootweb;
+package com.example.springbootweb.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,4 +24,10 @@ public class EjemploParamsController {
         return "params/ver";
     }
 
+    @GetMapping("/mix-params")
+    public String mix(@RequestParam String saludo, @RequestParam Integer numero, Model model){
+        model.addAttribute("titulo", "Recibir parametros del Request HTTP GET- URL");
+        model.addAttribute("resultado", "El txto en saludo es :" + saludo + "y el numero es: " + numero);
+        return "params/ver";
+    }
 }
