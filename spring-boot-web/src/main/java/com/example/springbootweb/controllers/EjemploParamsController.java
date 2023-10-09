@@ -38,7 +38,7 @@ public class EjemploParamsController {
         String saludo = request.getParameter("saludo");
         Integer numero = null;
         try {
-            numero = Integer.parseInt(request.getParameter('numero'));
+            numero = Integer.parseInt(request.getParameter("numero"));
         }catch(NumberFormatException e){
             numero = 0;
         }
