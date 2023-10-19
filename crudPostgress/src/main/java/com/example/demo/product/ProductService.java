@@ -30,7 +30,7 @@ public class ProductService {
 
         Optional<Product> res = productRepository.findProductByName(product.getName());
         HashMap<String, Object> datos = new  HashMap<>();
-        if (res.isPresent()){
+        if (res.isPresent() && product.getId() == null){
             //throw new IllegalStateException("Producto ya existe");
             datos.put("error", 402);
             datos.put("message", "El producto ya existe!");
@@ -39,9 +39,14 @@ public class ProductService {
                     HttpStatus.CONFLICT
             );
         }
+        datos.put("message", "Producto creato exitosamente!");
+        if (product.getId() != null){
+            datos.put("message", "Producto actualizado exitosamente!");
+        }
+
         productRepository.save(product);
         datos.put("data", product);
-        datos.put("message", "Producto creato exitosamente!");
+       
         return new ResponseEntity<>(
                 datos,
                 HttpStatus.CREATED
