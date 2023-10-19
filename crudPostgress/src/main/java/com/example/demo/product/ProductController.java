@@ -1,27 +1,31 @@
 package com.example.demo.product;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/products")
 public class ProductController {
 
+    private final ProductService productService;
+
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping
     public List<Product> getProducts(){
-
-        return List.of(new Product(
-                123L,
-                "LAPTOP",
-                500,
-                LocalDate.of(2023, Month.MARCH, 5),
-                2
-
-        ));
+        return this.productService.getProducts();
     }
+
+    @PostMapping
+    public void registerProduct(@RequestBody Product product){
+        this.productService.newProduct(product);
+    }
+
+
 }

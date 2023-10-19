@@ -1,31 +1,43 @@
 package com.example.demo.product;
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
-public class Product {
+
+@Entity
+@Table
+ public class Product extends AuditableEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_product", nullable = false)
     private Long id;
+    @Column(unique = true)
     private String name;
     private  float price;
     private LocalDate fecha;
+    @Transient
     private int antiguedad;
+
+
+
+
 
     public Product() {
     }
 
-    public Product(Long id, String name, float price, LocalDate fecha, int antiguedad) {
+    public Product(Long id, String name, float price, LocalDate fecha) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.fecha = fecha;
-        this.antiguedad = antiguedad;
     }
 
 
-    public Product(String name, float price, LocalDate fecha, int antiguedad) {
+    public Product(String name, float price, LocalDate fecha) {
         this.name = name;
         this.price = price;
         this.fecha = fecha;
-        this.antiguedad = antiguedad;
     }
 
     public Long getId() {
@@ -61,10 +73,11 @@ public class Product {
     }
 
     public int getAntiguedad() {
-        return antiguedad;
+        return Period.between(this.fecha, LocalDate.now()).getYears();
     }
 
     public void setAntiguedad(int antiguedad) {
         this.antiguedad = antiguedad;
     }
 }
+
