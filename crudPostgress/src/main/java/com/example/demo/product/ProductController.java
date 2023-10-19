@@ -1,6 +1,7 @@
 package com.example.demo.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public void registerProduct(@RequestBody Product product){
-        this.productService.newProduct(product);
+    public ResponseEntity<Object> registerProduct(@RequestBody Product product){
+      return   this.productService.newProduct(product);
+
     }
 
 
