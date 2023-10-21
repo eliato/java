@@ -58,11 +58,11 @@ public class ProductService {
         datos = new  HashMap<>();
         boolean existe = this.productRepository.existsById(id);
         if (!existe){
-            datos.put("error", true);
+            datos.put("error", 404);
             datos.put("message", "No se pudo eliminar el producto!");
             return new ResponseEntity<>(
                     datos,
-                    HttpStatus.CONFLICT
+                    HttpStatus.NOT_FOUND
             );
         }
         this.productRepository.deleteById(id);
