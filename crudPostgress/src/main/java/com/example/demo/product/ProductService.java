@@ -59,13 +59,13 @@ public class ProductService {
         boolean existe = this.productRepository.existsById(id);
         if (!existe){
             datos.put("error", true);
-            datos.put("message", "El se pudo elimnar el producto!");
+            datos.put("message", "No se pudo eliminar el producto!");
             return new ResponseEntity<>(
                     datos,
                     HttpStatus.CONFLICT
             );
         }
-
+        this.productRepository.deleteById(id);
         datos.put("message", "El producto fue elimnado exitosamente!");
         return new ResponseEntity<>(
                 datos,
