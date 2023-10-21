@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-
+    HashMap<String, Object> datos;
     private final ProductRepository productRepository;
 
     @Autowired
@@ -29,7 +29,7 @@ public class ProductService {
     public ResponseEntity<Object> newProduct(Product product) {
 
         Optional<Product> res = productRepository.findProductByName(product.getName());
-        HashMap<String, Object> datos = new  HashMap<>();
+        datos = new  HashMap<>();
         if (res.isPresent() && product.getId() == null){
             //throw new IllegalStateException("Producto ya existe");
             datos.put("error", 402);
@@ -46,11 +46,30 @@ public class ProductService {
 
         productRepository.save(product);
         datos.put("data", product);
-       
+
         return new ResponseEntity<>(
                 datos,
                 HttpStatus.CREATED
         );
 
+    }
+
+    public ResponseEntity<Object> deleteProduct(Long id){
+        datos = new  HashMap<>();
+        boolean existe = this.productRepository.existsById(id);
+        if (!existe){
+            datos.put("error", true);
+            datos.put("message", "El se pudo elimnar el producto!");
+            return new ResponseEntity<>(
+                    datos,
+                    HttpStatus.CONFLICT
+            );
+        }
+
+        datos.put("message", "El producto fue elimnado exitosamente!");
+        return new ResponseEntity<>(
+                datos,
+                HttpStatus.ACCEPTED
+        );
     }
 }
